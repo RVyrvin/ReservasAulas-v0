@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/java/org/iesalandalus/programacion/reservasaulas/Aula.java=UTF-8
 encoding//src/main/java/org/iesalandalus/programacion/reservasaulas/MainApp.java=UTF-8
 encoding//src/main/java/org/iesalandalus/programacion/reservasaulas/Permanencia.java=UTF-8
+encoding//src/main/java/org/iesalandalus/programacion/reservasaulas/Profesor.java=UTF-8
 encoding//src/main/java/org/iesalandalus/programacion/reservasaulas/Tramo.java=UTF-8
 encoding//src/main/java/org/iesalandalus/programacion/utilidades/Entrada.java=UTF-8
 encoding//src/test/java/org/iesalandalus/programacion/reservasaulas/modelo/AllTests.java=UTF-8

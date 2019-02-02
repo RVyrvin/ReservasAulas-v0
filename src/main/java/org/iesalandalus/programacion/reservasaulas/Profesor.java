@@ -1,31 +1,28 @@
 package org.iesalandalus.programacion.reservasaulas;
 
 public class Profesor {
-	
+
 	private static final String ER_TELEFONO = "[69][0-9]{8}";
 	private static final String ER_CORREO = "\\w[.\\w]*@[a-zA-Z]+\\.[a-zA-Z]{2,5}";
-	
+
 	private String nombre;
 	private String correo;
 	private String telefono;
-	
-	public Profesor(String nombre, String correo){
+
+	public Profesor(String nombre, String correo) {
 		this.setNombre(nombre);
 		this.setCorreo(correo);
 		this.telefono = null;
 	}
-	
-	public Profesor(String nombre, String correo, String telefono) {		
+
+	public Profesor(String nombre, String correo, String telefono) {
 		this.setNombre(nombre);
 		this.setCorreo(correo);
-		if (telefono == null)
-			this.telefono=null;
-		else
-			this.setTelefono(telefono);
+		this.setTelefono(telefono);
 	}
-	
+
 	public Profesor(Profesor profesor) {
-		
+
 		if (profesor == null)
 			throw new IllegalArgumentException("No se puede copiar un profesor nulo.");
 		else {
@@ -33,7 +30,7 @@ public class Profesor {
 			this.setCorreo(profesor.correo);
 			this.setTelefono(profesor.telefono);
 		}
-		
+
 	}
 
 	public String getNombre() {
@@ -58,7 +55,7 @@ public class Profesor {
 			throw new IllegalArgumentException("El correo del profesor no puede ser nulo.");
 		else if (!correo.matches(ER_CORREO))
 			throw new IllegalArgumentException("El correo del profesor no es válido.");
-		else 
+		else
 			this.correo = correo;
 	}
 
@@ -67,10 +64,14 @@ public class Profesor {
 	}
 
 	public void setTelefono(String telefono) {
-		if (!telefono.matches(ER_TELEFONO))
-			throw new IllegalArgumentException("El teléfono del profesor no es válido.");
-		else
-			this.telefono = telefono;
+		if (telefono == null)
+			this.telefono = null;
+		else {
+			if (!telefono.matches(ER_TELEFONO))
+				throw new IllegalArgumentException("El teléfono del profesor no es válido.");
+			else
+				this.telefono = telefono;
+		}
 	}
 
 	@Override

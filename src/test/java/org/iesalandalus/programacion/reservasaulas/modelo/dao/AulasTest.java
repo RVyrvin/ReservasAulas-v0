@@ -13,23 +13,25 @@ import org.iesalandalus.programacion.reservasaulas.Aulas;
 import org.junit.Test;
 
 public class AulasTest {
-	
+
 	private static final String NOMBRE_SALON1 = "Salón 1";
 	private static final String NOMBRE_SALON2 = "Salón 2";
 	private static final String NOMBRE_SALON3 = "Salón 3";
+	private static final String NOMBRE_SALON4 = "Salón 4";
 	private static final String ERROR_EXCEPCION = "Debería haber saltado la excepción.";
 	private static final String ERROR_NO_EXCEPCION = "No debería haber saltado la excepción.";
-	
+
 	private final Aula salon1 = new Aula(NOMBRE_SALON1);
 	private final Aula salon2 = new Aula(NOMBRE_SALON2);
 	private final Aula salon3 = new Aula(NOMBRE_SALON3);
+	private final Aula salon4 = new Aula(NOMBRE_SALON4);
 
 	@Test
 	public void constructorDefectoTest() {
 		Aulas aulas = new Aulas();
 		assertEquals(0, aulas.getNumAulas());
 	}
-	
+
 	@Test
 	public void constructorCopiaValidoTest() {
 		Aulas aulas1 = new Aulas();
@@ -38,7 +40,7 @@ public class AulasTest {
 		assertEquals(0, aulas2.getNumAulas());
 		assertNotEquals(aulas1.getAulas(), aulas2.getAulas());
 	}
-	
+
 	@Test
 	public void constructorCopiaNoValidoTest() {
 		Aulas aulas = null;
@@ -51,7 +53,7 @@ public class AulasTest {
 			assertNull(aulas1);
 		}
 	}
-	
+
 	@Test
 	public void insertarUnoValidoTest() {
 		Aulas aulas = new Aulas();
@@ -63,7 +65,7 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
 	@Test
 	public void insertarNuloTest() {
 		Aulas aulas = new Aulas();
@@ -77,7 +79,7 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
 	@Test
 	public void insertarRepetidoTest() {
 		Aulas aulas = new Aulas();
@@ -90,7 +92,7 @@ public class AulasTest {
 			assertEquals(1, aulas.getNumAulas());
 		}
 	}
-	
+
 	@Test
 	public void insertarTresValidoTest() {
 		Aulas aulas = new Aulas();
@@ -112,7 +114,22 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
+	@Test
+	public void insertarUnaQueSobraTest() {
+		Aulas aulas = new Aulas();
+		try {
+			aulas.insertar(salon1);
+			aulas.insertar(salon2);
+			aulas.insertar(salon3);
+			aulas.insertar(salon4);
+			fail(ERROR_EXCEPCION);
+		} catch (OperationNotSupportedException e) {
+			assertEquals("No se aceptan más aulas.", e.getMessage());
+			assertEquals(3, aulas.getNumAulas());
+		}
+	}
+
 	@Test
 	public void getAulasTest() {
 		Aulas aulas = new Aulas();
@@ -126,7 +143,7 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
 	private Aulas insertarTres() {
 		Aulas aulas = new Aulas();
 		try {
@@ -138,7 +155,7 @@ public class AulasTest {
 		}
 		return aulas;
 	}
-	
+
 	@Test
 	public void borrarPrincipioValidoTest() {
 		Aulas aulas = insertarTres();
@@ -153,7 +170,7 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
 	@Test
 	public void borrarMedioValidoTest() {
 		Aulas aulas = insertarTres();
@@ -168,7 +185,7 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
 	@Test
 	public void borrarFinalValidoTest() {
 		Aulas aulas = insertarTres();
@@ -183,7 +200,7 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
 	@Test
 	public void borrarNuloTest() {
 		Aulas aulas = insertarTres();
@@ -197,7 +214,7 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
 	@Test
 	public void borrarNoValidoTest() {
 		Aulas aulas = insertarTres();
@@ -210,7 +227,7 @@ public class AulasTest {
 			assertEquals(3, aulas.getNumAulas());
 		}
 	}
-	
+
 	@Test
 	public void borrarInsertarTest() {
 		Aulas aulas = insertarTres();
@@ -229,13 +246,13 @@ public class AulasTest {
 			fail(ERROR_NO_EXCEPCION);
 		}
 	}
-	
+
 	@Test
 	public void buscarNuloTest() {
 		Aulas aulas = insertarTres();
 		assertNull(aulas.buscar(null));
 	}
-	
+
 	@Test
 	public void representarTest() {
 		Aulas aulas = insertarTres();

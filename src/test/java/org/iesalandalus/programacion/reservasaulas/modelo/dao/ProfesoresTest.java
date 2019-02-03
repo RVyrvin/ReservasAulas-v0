@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 
 import javax.naming.OperationNotSupportedException;
 
+import org.iesalandalus.programacion.reservasaulas.Aulas;
 import org.iesalandalus.programacion.reservasaulas.Profesor;
 import org.iesalandalus.programacion.reservasaulas.Profesores;
 import org.junit.Test;
@@ -17,15 +18,18 @@ public class ProfesoresTest {
 	private static final String NOMBRE_PROFESOR1 = "José Ramón";
 	private static final String NOMBRE_PROFESOR2 = "Andrés";
 	private static final String NOMBRE_PROFESOR3 = "Begoña";
+	private static final String NOMBRE_PROFESOR4 = "Roman";
 	private static final String CORREO_PROFESOR1 = "aaaaa@bbbbb.ccc";
 	private static final String CORREO_PROFESOR2 = "bbbbb@ccccc.ddb";
 	private static final String CORREO_PROFESOR3 = "ccccc@bbbbd.eee";
+	private static final String CORREO_PROFESOR4 = "ccccc@bbbbd.eee";
 	private static final String ERROR_EXCEPCION = "Debería haber saltado la excepción.";
 	private static final String ERROR_NO_EXCEPCION = "No debería haber saltado la excepción.";
 
 	private final Profesor profesor1 = new Profesor(NOMBRE_PROFESOR1, CORREO_PROFESOR1);
 	private final Profesor profesor2 = new Profesor(NOMBRE_PROFESOR2, CORREO_PROFESOR2);
 	private final Profesor profesor3 = new Profesor(NOMBRE_PROFESOR3, CORREO_PROFESOR3);
+	private final Profesor profesor4 = new Profesor(NOMBRE_PROFESOR4, CORREO_PROFESOR4);
 
 	@Test
 	public void constructorDefectoTest() {
@@ -113,6 +117,21 @@ public class ProfesoresTest {
 			assertEquals(profesor3, arrayProfesores[2]);
 		} catch (OperationNotSupportedException e) {
 			fail(ERROR_NO_EXCEPCION);
+		}
+	}
+	
+	@Test
+	public void insertarUnaQueSobraTest() {
+		Profesores profesores = new Profesores();
+		try {
+			profesores.insertar(profesor1);
+			profesores.insertar(profesor2);
+			profesores.insertar(profesor3);
+			profesores.insertar(profesor4);
+			fail(ERROR_EXCEPCION);
+		} catch (OperationNotSupportedException e) {
+			assertEquals("No se aceptan más profesores.", e.getMessage());
+			assertEquals(3, profesores.getNumProfesores());
 		}
 	}
 

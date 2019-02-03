@@ -6,10 +6,10 @@ public class Aulas {
 
 	private static final int MAX_AULAS = 3;
 	private int numAulas;
-	private Aula[] aula;
+	private Aula[] coleccionAulas;
 
 	public Aulas() {
-		aula = new Aula[MAX_AULAS];
+		coleccionAulas = new Aula[MAX_AULAS];
 		numAulas = 0;
 	}
 
@@ -22,7 +22,7 @@ public class Aulas {
 			throw new IllegalArgumentException("No se pueden copiar aulas nulas.");
 		else {
 			this.numAulas = aulas.numAulas;
-			this.aula = copiaProfundaAulas(aulas.aula);
+			this.coleccionAulas = copiaProfundaAulas(aulas.coleccionAulas);
 		}
 	}
 
@@ -35,7 +35,7 @@ public class Aulas {
 	}
 
 	public Aula[] getAulas() {
-		return copiaProfundaAulas(aula);
+		return copiaProfundaAulas(coleccionAulas);
 	}
 
 	public int getNumAulas() {
@@ -43,18 +43,19 @@ public class Aulas {
 	}
 
 	public void insertar(Aula aula) throws OperationNotSupportedException {
-		if (aula==null)
+		if (aula == null)
 			throw new IllegalArgumentException("No se puede insertar un aula nula.");
 		else {
 			int index = buscarIndiceAula(aula);
-			if (!indiceNoSuperaTamano(index)) {
-				this.aula[index]=new Aula(aula);
+			boolean indexTamano = indiceNoSuperaTamano(index);
+			if (!indexTamano && index < Aulas.MAX_AULAS) {
+				this.coleccionAulas[index] = new Aula(aula);
 				this.numAulas++;
-			}else {
+			} else {
 				if (indiceNoSuperaCapacidad(index)) {
-					throw new OperationNotSupportedException("El aula ya existe.");					
+					throw new OperationNotSupportedException("El aula ya existe.");
 				} else {
-					throw new OperationNotSupportedException("No se aceptan más aulas");
+					throw new OperationNotSupportedException("No se aceptan más aulas.");
 				}
 			}
 		}
@@ -64,12 +65,12 @@ public class Aulas {
 	private int buscarIndiceAula(Aula aula) {
 		int index = 0;
 		boolean aulaEncontrada = false;
-		while(indiceNoSuperaTamano(index)&&!aulaEncontrada) {
-			if (this.aula[index].equals(aula)) {
-				aulaEncontrada=true;
-			}else {
+		while (indiceNoSuperaTamano(index) && !aulaEncontrada) {
+			if (this.coleccionAulas[index].equals(aula)) {
+				aulaEncontrada = true;
+			} else {
 				index++;
-			}			
+			}
 		}
 		return index;
 	}
@@ -86,7 +87,7 @@ public class Aulas {
 		int index = 0;
 		index = buscarIndiceAula(aula);
 		if (indiceNoSuperaTamano(index))
-			return new Aula(this.aula[index]);
+			return new Aula(this.coleccionAulas[index]);
 		else
 			return null;
 	}
@@ -98,7 +99,7 @@ public class Aulas {
 			int index = buscarIndiceAula(aula);
 			if (indiceNoSuperaTamano(index)) {
 				desplazarUnaPosicionHaciaIzquierda(index);
-			}else {
+			} else {
 				throw new OperationNotSupportedException("El aula a borrar no existe.");
 			}
 		}
@@ -106,16 +107,16 @@ public class Aulas {
 
 	private void desplazarUnaPosicionHaciaIzquierda(int index) {
 		for (int i = index; i < this.numAulas - 1; i++) {
-			this.aula[i] = this.aula[i + 1];
+			this.coleccionAulas[i] = this.coleccionAulas[i + 1];
 		}
-		this.aula[this.numAulas-1] = null;
+		this.coleccionAulas[this.numAulas - 1] = null;
 		this.numAulas--;
 	}
 
 	public String[] representar() {
 		String[] str = new String[this.numAulas];
-		for ( int index=0; indiceNoSuperaTamano(index); index++) {
-			str[index]=this.aula[index].toString();
+		for (int index = 0; indiceNoSuperaTamano(index); index++) {
+			str[index] = this.coleccionAulas[index].toString();
 		}
 		return str;
 	}

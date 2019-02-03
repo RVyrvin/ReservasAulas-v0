@@ -23,7 +23,6 @@ public class Reserva {
 			
 	}
 	
-
 	public Profesor getProfesor() {
 		return profesor;
 	}

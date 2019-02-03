@@ -26,10 +26,10 @@ public class Profesores {
 		}
 	}
 
-	private Profesor[] copiaProfundaProfesores(Profesor[] profesores) {
-		Profesor[] cpyProfesor = new Profesor[profesores.length];
-		for (int i = 0; i < profesores.length && profesores[i] != null; i++) {
-			cpyProfesor[i] = new Profesor(profesores[i]);
+	private Profesor[] copiaProfundaProfesores(Profesor[] profesor) {
+		Profesor[] cpyProfesor = new Profesor[profesor.length];
+		for (int i = 0; i < profesor.length && profesor[i] != null; i++) {
+			cpyProfesor[i] = new Profesor(profesor[i]);
 		}
 		return cpyProfesor;
 	}
@@ -47,14 +47,14 @@ public class Profesores {
 			throw new IllegalArgumentException("No se puede insertar un profesor nulo.");
 		} else {
 			int index = buscarIndiceProfesor(profesor);
-			if (!indiceNoSuperaTamano(index)) {
+			if (!indiceNoSuperaTamano(index) && index<Profesores.MAX_PROFESORES) {
 				this.coleccionProfesor[index] = new Profesor(profesor);
 				this.numProfesores++;
 			} else {
 				if (indiceNoSuperaCapacidad(index)) {
 					throw new OperationNotSupportedException("El profesor ya existe.");
 				} else {
-					throw new OperationNotSupportedException("***");
+					throw new OperationNotSupportedException("No se aceptan más profesores.");
 				}
 			}
 		}

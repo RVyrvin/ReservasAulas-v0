@@ -8,8 +8,7 @@ import static org.junit.Assert.fail;
 
 import javax.naming.OperationNotSupportedException;
 
-import org.iesalandalus.programacion.reservasaulas.Aula;
-import org.iesalandalus.programacion.reservasaulas.Aulas;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Aula;
 import org.junit.Test;
 
 public class AulasTest {

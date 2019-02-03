@@ -7,11 +7,6 @@ import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 
-import org.iesalandalus.programacion.reservasaulas.Aula;
-import org.iesalandalus.programacion.reservasaulas.Permanencia;
-import org.iesalandalus.programacion.reservasaulas.Profesor;
-import org.iesalandalus.programacion.reservasaulas.Reserva;
-import org.iesalandalus.programacion.reservasaulas.Tramo;
 import org.junit.Test;
 
 public class ReservaTest {

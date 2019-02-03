@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import org.iesalandalus.programacion.reservasaulas.Profesor;
 import org.junit.Test;
 
 public class ProfesorTest {

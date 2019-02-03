@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.reservasaulas;
+package org.iesalandalus.programacion.reservasaulas.modelo.dominio;
 
 public class Profesor {
 

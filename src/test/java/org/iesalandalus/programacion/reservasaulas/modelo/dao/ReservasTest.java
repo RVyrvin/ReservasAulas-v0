@@ -11,12 +11,11 @@ import java.time.LocalDate;
 
 import javax.naming.OperationNotSupportedException;
 
-import org.iesalandalus.programacion.reservasaulas.Aula;
-import org.iesalandalus.programacion.reservasaulas.Permanencia;
-import org.iesalandalus.programacion.reservasaulas.Profesor;
-import org.iesalandalus.programacion.reservasaulas.Reserva;
-import org.iesalandalus.programacion.reservasaulas.Reservas;
-import org.iesalandalus.programacion.reservasaulas.Tramo;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Aula;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Permanencia;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Profesor;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Reserva;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Tramo;
 import org.junit.Test;
 
 public class ReservasTest {

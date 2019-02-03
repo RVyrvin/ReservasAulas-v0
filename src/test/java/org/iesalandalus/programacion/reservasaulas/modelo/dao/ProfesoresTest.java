@@ -8,9 +8,7 @@ import static org.junit.Assert.fail;
 
 import javax.naming.OperationNotSupportedException;
 
-import org.iesalandalus.programacion.reservasaulas.Aulas;
-import org.iesalandalus.programacion.reservasaulas.Profesor;
-import org.iesalandalus.programacion.reservasaulas.Profesores;
+import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Profesor;
 import org.junit.Test;
 
 public class ProfesoresTest {

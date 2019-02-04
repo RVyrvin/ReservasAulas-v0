@@ -38,7 +38,7 @@ public class Consola {
 		return ordinalOpcion;
 	}
 
-	public static Aula leeraAula() {
+	public static Aula leerAula() {
 		Aula aula;
 		System.out.print("Introduce el nombre da la aula: ");
 		String nombreAula = leerNombreAula();

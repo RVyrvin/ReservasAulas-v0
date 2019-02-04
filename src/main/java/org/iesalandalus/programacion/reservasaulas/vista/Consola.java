@@ -26,7 +26,7 @@ public class Consola {
 	public static void mostrarCabecera(String mensaje) {
 		System.out.printf("%n%s%n", mensaje);
 		String cadena = "%0" + mensaje.length() + "%d%n";
-		System.out.println(String.format(cadena, 0).replace("0", "-"));
+		//System.out.println(String.format(cadena, 0).replace("0", "-"));
 	}
 
 	public static int elegirOpcion() {

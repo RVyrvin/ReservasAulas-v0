@@ -28,7 +28,7 @@ public enum Opcion {
 			vista.listarAulas();
 		}
 	},
-	INSERTAR_PROFESOR("Insertar aula") {
+	INSERTAR_PROFESOR("Insertar profesor") {
 		public void ejecutar() {
 			vista.insertarProfesor();
 		}

@@ -29,7 +29,7 @@ public class Aulas {
 	}
 
 	private Aula[] copiaProfundaAulas(Aula[] aula) {
-		Aula[] cpyAlua = new Aula[aula.length];
+		Aula[] cpyAlua = new Aula[this.numAulas];
 		for (int i = 0; i < aula.length && aula[i] != null; i++) {
 			cpyAlua[i] = new Aula(aula[i]);
 		}

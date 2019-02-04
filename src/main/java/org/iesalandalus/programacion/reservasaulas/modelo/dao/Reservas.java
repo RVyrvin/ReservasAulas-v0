@@ -33,7 +33,7 @@ public class Reservas {
 	}
 	
 	private Reserva[] copiaProfundaReservas(Reserva[] reserva) {
-		Reserva[] cpy = new Reserva[reserva.length];
+		Reserva[] cpy = new Reserva[this.numReservas];
 		for (int i=0; i<reserva.length && reserva[i]!=null; i++) {
 			cpy[i]=new Reserva(reserva[i]);
 		}

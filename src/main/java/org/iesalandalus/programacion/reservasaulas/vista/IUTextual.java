@@ -14,7 +14,7 @@ import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Tramo;
 public class IUTextual {
 
 	private static final String ERROR = "ERROR: ";
-	private static final String NOMBRE_VALIDO = "NOMBRE_VALIDO";
+	private static final String NOMBRE_VALIDO = "\\w+";
 	private static final String CORREO_VALIDO = "CORREO_VALIDO";
 
 	private ModeloReservasAulas modelo;
@@ -186,7 +186,7 @@ public class IUTextual {
 	}
 
 	private Reserva leerReserva(Profesor profesor) {
-		Consola.mostrarCabecera("Leer reserva");
+		// Consola.mostrarCabecera("Leer reserva");
 
 		boolean siExisteYa = false;
 		Reserva reserva = null;
@@ -224,7 +224,6 @@ public class IUTextual {
 			try {
 				modelo.anularReserva(reserva);
 			} catch (OperationNotSupportedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		else
@@ -233,11 +232,13 @@ public class IUTextual {
 
 	public void listarReserva() {
 		Consola.mostrarCabecera("Listar reserva");
-		
-		Reserva[] reservas = modelo.getReservas();
 
-		if (reservas.length > 0) {
-			System.out.println(reservas);
+		String[] reservasSTR = modelo.representarReservas();
+
+		if (reservasSTR.length > 0) {
+			for (String reserva : reservasSTR) {
+				System.out.println(reserva.toString());
+			}
 		} else {
 			System.out.println("No hay reservas para listar ...");
 		}
@@ -245,35 +246,72 @@ public class IUTextual {
 
 	public void listarReservasAulas() {
 		Consola.mostrarCabecera("lista reservas de aulas");
-		modelo.representarAulas();
+
+		String[] reservasAula = modelo.representarAulas();
+		if (reservasAula.length > 0) {
+			for (String reserva : reservasAula) {
+				System.out.println(reserva.toString());
+			}
+		} else {
+			System.out.println("No hay reservas de aulas para listar ...");
+		}
 	}
 
 	public void listarReservasProfesores() {
 		Consola.mostrarCabecera("lista reservas de profesores");
-		modelo.representarProfesores();
+		String[] reservasProfesores = modelo.representarProfesores();
+
+		if (reservasProfesores.length > 0) {
+			for (String reserva : reservasProfesores) {
+				System.out.println(reserva.toString());
+			}
+		} else {
+			System.out.println("No hay reservas de profesores para listar ...");
+		}
 	}
 
 	public void listarReservasPermanencia() {
 		Consola.mostrarCabecera("lista reservas de permanencia");
-		modelo.representarReservas();
+
+		String[] reservasPermanencia = modelo.representarReservas();
+		if (reservasPermanencia.length > 0) {
+			for (String reserva : reservasPermanencia) {
+				System.out.println(reserva.toString());
+			}
+		} else {
+			System.out.println("No hay reservas de permanencias para listar ...");
+		}
 	}
 
 	public void consultarDisponibilidad() {
 		Consola.mostrarCabecera("Consultar disponibilidad");
 		boolean isDisponible = true;
+		boolean aulaExiste = false;
 
 		Aula aula = Consola.leerAula();
 		LocalDate dia = Consola.leerDia();
 		Tramo tramo = Consola.Tramo();
 
-		isDisponible = modelo.consultarDisponibilidad(aula, new Permanencia(dia, tramo));
+		Aula[] aulas = modelo.getAulas();
 
-		if (isDisponible)
-			System.out.println("aula " + aula.getNombre() + " esta disponible para la " + tramo.toString() + " al día "
-					+ dia.toString());
-		else
-			System.out.println("aula " + aula.getNombre() + " no esta disponible para la " + tramo.toString()
-					+ " al día " + dia.toString());
+		for (Aula a : aulas) {
+			if (a.equals(aula))
+				aulaExiste = true;
+		}
+
+		if (aulaExiste) {
+
+			isDisponible = modelo.consultarDisponibilidad(aula, new Permanencia(dia, tramo));
+
+			if (isDisponible)
+				System.out.println("aula " + aula.getNombre() + " esta disponible para la " + tramo.toString()
+						+ " al día " + dia.toString());
+			else
+				System.out.println("aula " + aula.getNombre() + " no esta disponible para la " + tramo.toString()
+						+ " al día " + dia.toString());
+		} else {
+			System.out.println("No existe la aula para la cual queres mostrar las permamemcias");
+		}
 	}
 
 }

@@ -2,7 +2,6 @@ package org.iesalandalus.programacion.reservasaulas.modelo.dominio;
 
 import static org.junit.Assert.assertEquals;
 
-import org.iesalandalus.programacion.reservasaulas.*;
 import org.junit.Test;
 
 public class TramoTest {

@@ -25,8 +25,8 @@ public class Consola {
 
 	public static void mostrarCabecera(String mensaje) {
 		System.out.printf("%n%s%n", mensaje);
-		//String cadena = "%0" + mensaje.length() + "%d%n";
-		//System.out.println(String.format(cadena, 0));
+		// String cadena = "%0" + mensaje.length() + "%d%n";
+		// System.out.println(String.format(cadena, 0));
 	}
 
 	public static int elegirOpcion() {
@@ -40,7 +40,10 @@ public class Consola {
 
 	public static Aula leerAula() {
 		Aula aula;
-		String nombreAula = leerNombreAula();
+		String nombreAula;
+		do {
+			nombreAula = leerNombreAula();
+		} while (nombreAula.trim().equals(""));
 		aula = new Aula(nombreAula);
 		return aula;
 	}
@@ -52,9 +55,18 @@ public class Consola {
 
 	public static Profesor leerProfesor() {
 		Profesor profesor;
-		String nombreProfesor = leerNombreProfesor();
-		System.out.print("Introduce el correo: ");
-		String correoProfesor = Entrada.cadena();
+
+		String nombreProfesor;
+		do {
+			nombreProfesor = leerNombreProfesor();
+		} while (nombreProfesor.trim().equals(""));
+
+		String correoProfesor;
+		do {
+			System.out.print("Introduce el correo: ");
+			correoProfesor = Entrada.cadena();
+		} while (correoProfesor.trim().equals(""));
+
 		System.out.print("Introduce el telefono: ");
 		String telefonoProfesor = Entrada.cadena();
 		if (telefonoProfesor.trim().equals(""))
@@ -71,21 +83,38 @@ public class Consola {
 	}
 
 	public static Tramo Tramo() {
-		System.out.print("Introduce el tramo (M/T): ");
-		if (Entrada.caracter() == 'M')
-			return Tramo.MANANA;
-		else
-			return Tramo.TARDE;
+		Tramo tramo = null;
+		do {
+			System.out.print("Introduce el tramo (M/T): ");
+			if (Entrada.caracter() == 'M') {
+				tramo = Tramo.MANANA;
+			} else if (Entrada.caracter() == 'T') {
+				tramo = Tramo.TARDE;
+			}
+		} while (tramo == null);
+		return tramo;
 	}
 
 	public static LocalDate leerDia() {
 		LocalDate data;
-		System.out.print("Introduce el anno (yyyy): ");
-		int anno = Entrada.entero();
-		System.out.print("Introduce el mes (mm): ");
-		int mes = Entrada.entero();
-		System.out.print("Introduce el día (dd): ");
-		int dia = Entrada.entero();
+		int anno;
+		do {
+			System.out.print("Introduce el anno (yyyy): ");
+			anno = Entrada.entero();
+		} while (String.valueOf(anno).length() != 4);
+
+		int mes;
+		do {
+			System.out.print("Introduce el mes (mm): ");
+			mes = Entrada.entero();
+		} while (mes < 1 || mes > 12);
+
+		int dia;
+		do {
+			System.out.print("Introduce el día (dd): ");
+			dia = Entrada.entero();
+		} while (dia < 0 || dia > 31);
+
 		data = LocalDate.of(anno, mes, dia);
 		return data;
 	}

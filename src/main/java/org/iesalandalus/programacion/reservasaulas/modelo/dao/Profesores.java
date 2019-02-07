@@ -29,7 +29,6 @@ public class Profesores {
 	}
 
 	private Profesor[] copiaProfundaProfesores(Profesor[] profesor) {
-		//Profesor[] cpyProfesor = new Profesor[profesor.length];
 		Profesor[] cpyProfesor = new Profesor[this.numProfesores];
 		for (int i = 0; i < profesor.length && profesor[i] != null; i++) {
 			cpyProfesor[i] = new Profesor(profesor[i]);

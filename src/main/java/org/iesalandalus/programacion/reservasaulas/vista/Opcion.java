@@ -1,7 +1,5 @@
 package org.iesalandalus.programacion.reservasaulas.vista;
 
-import javax.naming.OperationNotSupportedException;
-
 public enum Opcion {
 	SALIR("Salir") {
 		public void ejecutar() {

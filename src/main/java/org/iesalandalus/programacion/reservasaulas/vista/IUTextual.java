@@ -15,7 +15,7 @@ public class IUTextual {
 
 	private static final String ERROR = "ERROR: ";
 	private static final String NOMBRE_VALIDO = "\\w+";
-	private static final String CORREO_VALIDO = "CORREO_VALIDO";
+	private static final String CORREO_VALIDO = "good@mail.com";
 
 	private ModeloReservasAulas modelo;
 
@@ -105,23 +105,16 @@ public class IUTextual {
 	public void borrarProfesor() {
 		Consola.mostrarCabecera("Borrar prfesor");
 		try {
-			boolean siExiste = false;
-			int index = 0;
 			String nombreProfesor = Consola.leerNombreProfesor().trim();
 
-			Profesor[] listaProfesores = modelo.getProfesores();
+			Profesor profesor = null;
+			profesor = modelo.buscarProfesor(new Profesor(nombreProfesor, CORREO_VALIDO));
 
-			for (int i = 0; i < listaProfesores.length; i++)
-				if (listaProfesores[i].getNombre().equals(nombreProfesor)) {
-					siExiste = true;
-					index = i;
-				}
-
-			if (siExiste) {
-				modelo.borrarProfesor(listaProfesores[index]);
+			if (profesor != null) {
+				modelo.borrarProfesor(profesor);
 				System.out.println("Profesor borrado correctamente");
 			} else {
-				System.out.println("Profesor que queres borrar todavia no seha registrado...");
+				System.out.println("Profesor que queres borrar todavia no se ha registrado...");
 			}
 
 		} catch (OperationNotSupportedException e) {
@@ -132,20 +125,13 @@ public class IUTextual {
 	public void buscarProfesor() {
 		Consola.mostrarCabecera("Buscar profesor");
 		try {
-			boolean siExiste = false;
-			int index = 0;
 			String nombreProfesor = Consola.leerNombreProfesor().trim();
 
-			Profesor[] listaProfesores = modelo.getProfesores();
+			Profesor profesor = null;
+			profesor = modelo.buscarProfesor(new Profesor(nombreProfesor, CORREO_VALIDO));
 
-			for (int i = 0; i < listaProfesores.length; i++)
-				if (listaProfesores[i].getNombre().equals(nombreProfesor)) {
-					siExiste = true;
-					index = i;
-				}
-
-			if (siExiste) {
-				System.out.println("El profesor buscado es: " + listaProfesores[index]);
+			if (profesor != null) {
+				System.out.println("El profesor buscado es: " + profesor.toString());
 			} else {
 				System.out.println("No existe ningún profesor con dicho nombre");
 			}
@@ -177,7 +163,6 @@ public class IUTextual {
 			try {
 				modelo.realizarReserva(reserva);
 			} catch (OperationNotSupportedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		else
@@ -245,11 +230,14 @@ public class IUTextual {
 	}
 
 	public void listarReservasAulas() {
-		Consola.mostrarCabecera("lista reservas de aulas");
 
-		String[] reservasAula = modelo.representarAulas();
-		if (reservasAula.length > 0) {
-			for (String reserva : reservasAula) {
+		Consola.mostrarCabecera("lista reservas de aulas");
+		Aula aula = Consola.leerAula();
+
+		Reserva[] aulas = modelo.getReservasAula(aula);
+
+		if (aulas.length > 0) {
+			for (Reserva reserva : aulas) {
 				System.out.println(reserva.toString());
 			}
 		} else {
@@ -258,11 +246,15 @@ public class IUTextual {
 	}
 
 	public void listarReservasProfesores() {
-		Consola.mostrarCabecera("lista reservas de profesores");
-		String[] reservasProfesores = modelo.representarProfesores();
 
-		if (reservasProfesores.length > 0) {
-			for (String reserva : reservasProfesores) {
+		Consola.mostrarCabecera("lista reservas de profesores");
+		String nombreProfesor = Consola.leerNombreProfesor();
+		Profesor profesor = new Profesor(nombreProfesor, CORREO_VALIDO);
+
+		Reserva[] profesores = modelo.getReservaProfesor(profesor);
+
+		if (profesores.length > 0) {
+			for (Reserva reserva : profesores) {
 				System.out.println(reserva.toString());
 			}
 		} else {
@@ -271,11 +263,14 @@ public class IUTextual {
 	}
 
 	public void listarReservasPermanencia() {
+
 		Consola.mostrarCabecera("lista reservas de permanencia");
 
-		String[] reservasPermanencia = modelo.representarReservas();
-		if (reservasPermanencia.length > 0) {
-			for (String reserva : reservasPermanencia) {
+		Permanencia permanencia = new Permanencia(Consola.leerDia(), Consola.Tramo());
+		Reserva[] permanencias = modelo.getReservaPermanencia(permanencia);
+
+		if (permanencias.length > 0) {
+			for (Reserva reserva : permanencias) {
 				System.out.println(reserva.toString());
 			}
 		} else {

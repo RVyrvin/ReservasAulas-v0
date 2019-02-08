@@ -78,9 +78,7 @@ public class Profesor {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((correo == null) ? 0 : correo.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((telefono == null) ? 0 : telefono.hashCode());
 		return result;
 	}
 

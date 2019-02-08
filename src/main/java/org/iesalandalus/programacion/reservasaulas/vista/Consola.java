@@ -25,8 +25,8 @@ public class Consola {
 
 	public static void mostrarCabecera(String mensaje) {
 		System.out.printf("%n%s%n", mensaje);
-		// String cadena = "%0" + mensaje.length() + "%d%n";
-		// System.out.println(String.format(cadena, 0));
+		String cadena = "%0" + mensaje.length() + "d%n";
+		System.out.println(String.format(cadena, 0).replace("0", "-"));
 	}
 
 	public static int elegirOpcion() {
@@ -83,20 +83,26 @@ public class Consola {
 	}
 
 	public static Tramo Tramo() {
+		
 		Tramo tramo = null;
-		do {
+		
+		do {			
 			System.out.print("Introduce el tramo (M/T): ");
-			if (Entrada.caracter() == 'M') {
+			char ch = Entrada.caracter();
+			if (ch == 'M' || ch == 'm') {
 				tramo = Tramo.MANANA;
-			} else if (Entrada.caracter() == 'T') {
+			} else if (ch == 'T' || ch == 't') {
 				tramo = Tramo.TARDE;
 			}
 		} while (tramo == null);
+		
 		return tramo;
 	}
 
 	public static LocalDate leerDia() {
+		
 		LocalDate data;
+		
 		int anno;
 		do {
 			System.out.print("Introduce el anno (yyyy): ");
@@ -116,6 +122,7 @@ public class Consola {
 		} while (dia < 0 || dia > 31);
 
 		data = LocalDate.of(anno, mes, dia);
+		
 		return data;
 	}
 

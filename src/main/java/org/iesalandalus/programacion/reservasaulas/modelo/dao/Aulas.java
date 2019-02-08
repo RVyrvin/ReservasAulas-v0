@@ -12,7 +12,7 @@ public class Aulas {
 
 	public Aulas() {
 		coleccionAulas = new Aula[MAX_AULAS];
-		numAulas = 0;
+		numAulas = 0;		
 	}
 
 	public Aulas(Aulas aulas) {

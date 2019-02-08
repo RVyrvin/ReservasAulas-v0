@@ -9,7 +9,7 @@ import org.iesalandalus.programacion.reservasaulas.modelo.dominio.Reserva;
 
 public class Reservas {
 	
-	private static final int MAX_RESERVAS = 4;
+	private static final int MAX_RESERVAS = 10;
 	private int numReservas;
 	private Reserva[] coleccionReservas;
 	

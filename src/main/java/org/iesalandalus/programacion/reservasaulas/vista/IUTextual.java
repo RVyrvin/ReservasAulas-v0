@@ -45,7 +45,7 @@ public class IUTextual {
 		try {
 			Aula aula = Consola.leerAula();
 			modelo.insertarAula(aula);
-			System.out.println("Aula insertada correctamente");
+			System.out.println("\nAula insertada correctamente");
 		} catch (OperationNotSupportedException e) {
 			System.out.println(ERROR + e.getMessage());
 		}
@@ -56,7 +56,7 @@ public class IUTextual {
 		try {
 			Aula aula = Consola.leerAula();
 			modelo.borrarAula(aula);
-			System.out.println("Aula borrada correctamente");
+			System.out.println("\nAula borrada correctamente");
 		} catch (OperationNotSupportedException e) {
 			System.out.println(ERROR + e.getMessage());
 		}
@@ -69,9 +69,9 @@ public class IUTextual {
 			aula = Consola.leerAula();
 			aula = modelo.buscarAula(aula);
 			if (aula != null) {
-				System.out.println("El aula buscado es: " + aula);
+				System.out.println("\nEl aula buscado es: " + aula);
 			} else {
-				System.out.println("No existe ningún aula con dicho nombre");
+				System.out.println("\nNo existe ningún aula con dicho nombre");
 			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(ERROR + e.getMessage());
@@ -86,7 +86,7 @@ public class IUTextual {
 				System.out.println(aula);
 			}
 		} else {
-			System.out.println("No hay aulas para listar");
+			System.out.println("\nNo hay aulas para listar");
 		}
 	}
 
@@ -96,7 +96,7 @@ public class IUTextual {
 		try {
 			Profesor profesor = Consola.leerProfesor();
 			modelo.insertarProfesor(profesor);
-			System.out.println("Profesor insertado correctamente");
+			System.out.println("\nProfesor insertado correctamente");
 		} catch (OperationNotSupportedException e) {
 			System.out.println(ERROR + e.getMessage());
 		}
@@ -112,9 +112,9 @@ public class IUTextual {
 
 			if (profesor != null) {
 				modelo.borrarProfesor(profesor);
-				System.out.println("Profesor borrado correctamente");
+				System.out.println("\nProfesor borrado correctamente");
 			} else {
-				System.out.println("Profesor que queres borrar todavia no se ha registrado...");
+				System.out.println("\nProfesor que queres borrar todavia no se ha registrado...");
 			}
 
 		} catch (OperationNotSupportedException e) {
@@ -131,9 +131,9 @@ public class IUTextual {
 			profesor = modelo.buscarProfesor(new Profesor(nombreProfesor, CORREO_VALIDO));
 
 			if (profesor != null) {
-				System.out.println("El profesor buscado es: " + profesor.toString());
+				System.out.println("\nEl profesor buscado es: " + profesor.toString());
 			} else {
-				System.out.println("No existe ningún profesor con dicho nombre");
+				System.out.println("\nNo existe ningún profesor con dicho nombre");
 			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(ERROR + e.getMessage());
@@ -148,7 +148,7 @@ public class IUTextual {
 				System.out.println(profesor);
 			}
 		} else {
-			System.out.println("No hay profesores para listar");
+			System.out.println("\nNo hay profesores para listar");
 		}
 	}
 
@@ -166,7 +166,7 @@ public class IUTextual {
 				e.printStackTrace();
 			}
 		else
-			System.out.println("La misma reserva ya existe.");
+			System.out.println("\nLa misma reserva ya existe.");
 
 	}
 
@@ -212,7 +212,7 @@ public class IUTextual {
 				e.printStackTrace();
 			}
 		else
-			System.out.println("La reserva que queser anulas, no existe");
+			System.out.println("\nLa reserva que queser anulas, no existe");
 	}
 
 	public void listarReserva() {
@@ -225,7 +225,7 @@ public class IUTextual {
 				System.out.println(reserva.toString());
 			}
 		} else {
-			System.out.println("No hay reservas para listar ...");
+			System.out.println("\nNo hay reservas para listar ...");
 		}
 	}
 
@@ -237,11 +237,17 @@ public class IUTextual {
 		Reserva[] aulas = modelo.getReservasAula(aula);
 
 		if (aulas.length > 0) {
+			boolean anyReserva = false;
 			for (Reserva reserva : aulas) {
-				System.out.println(reserva.toString());
+				if (reserva != null) {
+					System.out.println(reserva.toString());
+					anyReserva = true;
+				}
 			}
+			if (!anyReserva)
+				System.out.println("\nNo hay reservas para esta aula ...");
 		} else {
-			System.out.println("No hay reservas de aulas para listar ...");
+			System.out.println("\nNo hay reservas para listar ...");
 		}
 	}
 
@@ -254,11 +260,17 @@ public class IUTextual {
 		Reserva[] profesores = modelo.getReservaProfesor(profesor);
 
 		if (profesores.length > 0) {
+			boolean anyReserva = false;
 			for (Reserva reserva : profesores) {
-				System.out.println(reserva.toString());
+				if (reserva != null) {
+					System.out.println(reserva.toString());
+					anyReserva = true;
+				}
 			}
+			if (!anyReserva)
+				System.out.println("\nNo hay reservas para este profesor ...");
 		} else {
-			System.out.println("No hay reservas de profesores para listar ...");
+			System.out.println("\nNo hay reservas para listar ...");
 		}
 	}
 
@@ -266,15 +278,24 @@ public class IUTextual {
 
 		Consola.mostrarCabecera("lista reservas de permanencia");
 
-		Permanencia permanencia = new Permanencia(Consola.leerDia(), Consola.Tramo());
+		LocalDate dia = Consola.leerDia();
+		Tramo tramo = Consola.Tramo();
+		Permanencia permanencia = new Permanencia(dia, tramo);
+
 		Reserva[] permanencias = modelo.getReservaPermanencia(permanencia);
 
 		if (permanencias.length > 0) {
+			boolean anyReserva = false;
 			for (Reserva reserva : permanencias) {
-				System.out.println(reserva.toString());
+				if (reserva != null) {
+					System.out.println(reserva.toString());
+					anyReserva = true;
+				}
 			}
+			if (!anyReserva)
+				System.out.println("\nNo hay reservas para esta permanencia ...");
 		} else {
-			System.out.println("No hay reservas de permanencias para listar ...");
+			System.out.println("\nNo hay reservas para listar ...");
 		}
 	}
 
@@ -284,8 +305,6 @@ public class IUTextual {
 		boolean aulaExiste = false;
 
 		Aula aula = Consola.leerAula();
-		LocalDate dia = Consola.leerDia();
-		Tramo tramo = Consola.Tramo();
 
 		Aula[] aulas = modelo.getAulas();
 
@@ -296,16 +315,19 @@ public class IUTextual {
 
 		if (aulaExiste) {
 
+			LocalDate dia = Consola.leerDia();
+			Tramo tramo = Consola.Tramo();
+
 			isDisponible = modelo.consultarDisponibilidad(aula, new Permanencia(dia, tramo));
 
 			if (isDisponible)
-				System.out.println("aula " + aula.getNombre() + " esta disponible para la " + tramo.toString()
+				System.out.println("\naula " + aula.getNombre() + " esta disponible para la " + tramo.toString()
 						+ " al día " + dia.toString());
 			else
-				System.out.println("aula " + aula.getNombre() + " no esta disponible para la " + tramo.toString()
+				System.out.println("\naula " + aula.getNombre() + " no esta disponible para la " + tramo.toString()
 						+ " al día " + dia.toString());
 		} else {
-			System.out.println("No existe la aula para la cual queres mostrar las permamemcias");
+			System.out.println("\nNo existe la aula para la cual queres mostrar las permamemcias");
 		}
 	}
 

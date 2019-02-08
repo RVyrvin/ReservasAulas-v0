@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.reservasaulas;
 
+import javax.naming.OperationNotSupportedException;
+
 import org.iesalandalus.programacion.reservasaulas.vista.Consola;
 import org.iesalandalus.programacion.reservasaulas.vista.IUTextual;
 
